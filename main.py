@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 
-from storage import all_movies, liked_movies, not_liked_movies, did_not_watch
+from storage import all_movies, liked, disliked, not_watched
 from demographic_filtering import output
 from content_filtering import get_recommendations
 
@@ -24,25 +24,25 @@ def get_movie():
 @app.route("/liked-movie", methods=["POST"])
 def liked_movie():
     movie = all_movies[0]
-    liked_movies.append(movie)
+    liked.append(movie)
     all_movies.pop(0)
     return jsonify({
         "status": "success"
     }), 201
 
-@app.route("/unliked-movie", methods=["POST"])
-def unliked_movie():
+@app.route("/disliked-movie", methods=["POST"])
+def disliked_movie():
     movie = all_movies[0]
-    not_liked_movies.append(movie)
+    disliked.append(movie)
     all_movies.pop(0)
     return jsonify({
         "status": "success"
     }), 201
 
-@app.route("/did-not-watch", methods=["POST"])
-def did_not_watch_view():
+@app.route("/not-watched", methods=["POST"])
+def not_watched():
     movie = all_movies[0]
-    did_not_watch.append(movie)
+    not_watched.append(movie)
     all_movies.pop(0)
     return jsonify({
         "status": "success"
@@ -69,7 +69,7 @@ def popular_movies():
 @app.route("/recommended-movies")
 def recommended_movies():
     all_recommended = []
-    for liked_movie in liked_movies:
+    for liked_movie in liked:
         output = get_recommendations(liked_movie[19])
         for data in output:
             all_recommended.append(data)
