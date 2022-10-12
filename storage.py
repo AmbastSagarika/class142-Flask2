@@ -7,6 +7,6 @@ with open('final.csv',encoding='utf-8') as f:
     data = list(reader)
     all_movies = data[1:]
 
-liked_movies = []
-not_liked_movies = []
-did_not_watch = []
+liked = []
+disliked = []
+not_watch = []
