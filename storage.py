@@ -9,4 +9,4 @@ with open('final.csv',encoding='utf-8') as f:
 
 liked = []
 disliked = []
-not_watch = []
+not_watched = []
